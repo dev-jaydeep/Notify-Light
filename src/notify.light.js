@@ -27,13 +27,20 @@
                             theme : "default",
                             message : "",
                             preMessage : "",
-                            type : "",
+                            type : "info",
                             defaultType : "info",
                             positionFixed : true,
                             positionFixedPlacementVerticle : "bottom",
                             positionFixedPlacementHorizontal : "right",
                             positionFixedPlacementSpacing : '10px',
-                            autoHide : true,
+                            autoHide: true,
+                            showIcon:true,
+                            icons: {
+                                success:'glyphicon-ok-sign',
+                                danger:'glyphicon-remove-sign',
+                                info:'glyphicon-info-sign',
+                                warning:'glyphicon-alert'
+                            },
                             autoHideTime : 5000,
                             closeBtn : true,
                             loop: false,
@@ -117,23 +124,26 @@
                         },
                         buildNotification:function(){
                             var _notifyType = ['danger','success','warning','info'];
-                            var notifyType = $.inArray(this.settings.type,_notifyType) ? this.settings.type : this.settings.defaultType;
+                            var notifyType = ($.inArray(this.settings.type,_notifyType) >= 0) ? this.settings.type : this.settings.defaultType;
                             var preMessage = this.settings.preMessage ? this.settings.preMessage : notifyType;
                             var dismissable = this.settings.closeBtn ? 'alert-dismissable' : '';
-                            var dismissableBtn = this.settings.closeBtn ? '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' : '';
+                            if( this.settings.showIcon ) {
+                                var notifyIcon = '';
+                                var _notifyIcon = ($.inArray(this.settings.type,_notifyType) >= 0) ? this.settings.icons[this.settings.type] : '';
+								if( _notifyIcon ) {
+                                    notifyIcon = '<i class="glyphicon '+_notifyIcon+'"></i>';
+                                }
+                                
+                            }
                             if( this.settings.closeBtn ) {
-                                this.btnClose = $('<a>&times;</a>');
-                                this.btnClose.attr('href','#')
-                                .attr('class','#')
-                                .attr('data-dismiss','alert')
-                                .attr('aria-label','close');
+                                this.btnClose = '<a href="#" data-dismiss="alert" aria-label="close" class="close">&times;</a>';
                             }
                             
                             switch( this.settings.theme ) {
                                 case 'bootstrap':
                                 case 'defaults':    
                                     this.element.attr('class','JD'+pluginName+' alert fade '+dismissable+' alert-'+notifyType+'');
-                                    this.element.html(dismissableBtn + '<strong>'+preMessage+'! '+this.settings.message+'</strong>');
+                                    this.element.html(notifyIcon +' '+ this.btnClose + '<strong>'+preMessage+'! '+this.settings.message+'</strong>');
                                     break;
                             }
                             
