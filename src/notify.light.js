@@ -1,9 +1,9 @@
 /*
- *  jquery-boilerplate - v4.0.0
- *  A jump-start for jQuery plugins development.
- *  http://jqueryboilerplate.com
+ *  Notify Light 1.0
+ *  jQuery plugins for nofication.
+ *  
  *
- *  Made by Zeno Rocha
+ *  Made by Jaydeep Chauhan
  *  Under MIT License
  */
 // the semi-colon before function invocation is a safety net against concatenated
